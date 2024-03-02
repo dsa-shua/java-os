@@ -1,5 +1,7 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class OS extends Program{
     private ArrayList<Program> processList = new ArrayList<Program>();
@@ -15,21 +17,31 @@ public class OS extends Program{
     }
 
     public int main(){
-        Scanner shell = new Scanner(System.in);
-        add(new Shell(nextPID));
+        Scanner scanner = new Scanner(System.in);
+        Shell myShell = new Shell(nextPID);
+        add(myShell);
 
         while(true){
             System.out.print("$ ");
-            shellBuf = shell.nextLine().split(" ");
+            shellBuf = scanner.nextLine().split(" ");
 
             if (shellBuf[0].equals("exit") || shellBuf[0].equals("quit") || shellBuf[0].equals("q")){
                 break;
             } else {
-                run(shellBuf[0]);
+                // Run base custom
+                // run(shellBuf[0]);
+
+                // Run using the machine shell
+                try {
+                    myShell.run(shellBuf[0]);
+                } catch (Exception e) {
+                    System.out.println("shell thrown.");
+                    e.printStackTrace();
+                }
             }
         }
 
-        shell.close();
+        scanner.close();
         return 0;
     }
 
@@ -114,6 +126,10 @@ public class OS extends Program{
             
         }
         
+        else if (prog_name.equals("shell")){
+            
+        }
+
 
         else if (prog_name.equals("")){
 
@@ -144,12 +160,4 @@ public class OS extends Program{
         System.out.printf("runtime: %.3f sec\n", (totalTime/1e9));
         kill(temp);
     }
-
-
-
-    
-
-
-
-
 }

@@ -1,4 +1,4 @@
-
+import java.io.IOException;
 
 public class Program {
     protected int pid = -1;
@@ -35,7 +35,7 @@ public class Program {
 
 
     // Executable part
-    public int main(){
+    public int main() throws IOException{
         return 0;
     }
 
